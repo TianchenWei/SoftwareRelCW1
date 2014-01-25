@@ -1,10 +1,10 @@
 package bookings;
 
 public class SeatReservationManager {
-		/*@ invariant seatReservations != null;
+	/*@ invariant seatReservations != null;
 	    invariant(\forall int x;
-			0<=x && x<seatReservations.length ==>seatReservations[x]!= null);
-		 @*/
+		0<=x && x<seatReservations.length ==>seatReservations[x]!= null);
+	@*/
     private final Customer[][] seatReservations;
     
     public SeatReservationManager() {
@@ -12,7 +12,7 @@ public class SeatReservationManager {
                                        [numberToIndex(Seat.MAX_NUMBER) + 1];
     }
 
-		//@requires s != null; 
+	//@requires s != null; 
     public boolean isReserved(Seat s) {
 
         return seatReservations[rowToIndex(s.getRow())]
@@ -44,7 +44,7 @@ public class SeatReservationManager {
         for(int rowIndex = 0; rowIndex < seatReservations.length; rowIndex++) {
             for(int numberIndex = 0; 
                     numberIndex < seatReservations[rowIndex].length; 
-                    numberIndex++) {
+                    numberIndex++) { 
                 Seat current = new Seat(indexToRow(rowIndex), 
                     indexToNumber(numberIndex));
                 if(!isReserved(current)) {
@@ -89,18 +89,22 @@ public class SeatReservationManager {
         return result;
     }
 
-    private static int rowToIndex(char row) {
+	//@requires row >= 'A' && row<='Z';
+	//@ensures \result >= 0 && \result<= 25;
+	private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
-    private static int numberToIndex(int number) {
+	//@requires number >= 1;
+	//@ensures \result >= 0;
+	private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
-
+    
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }
