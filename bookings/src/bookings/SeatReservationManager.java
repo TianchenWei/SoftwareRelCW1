@@ -11,13 +11,14 @@ public class SeatReservationManager {
         seatReservations = new Customer[rowToIndex(Seat.MAX_ROW) + 1]
                                        [numberToIndex(Seat.MAX_NUMBER) + 1];
     }
- //@requires s != null;
- 
-    public boolean isReserved(Seat s) {
+
+	 //@requires s != null;
+     public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
                                [numberToIndex(s.getNumber())] != null;
     }
- //@requires s != null;
+ 	//@requires s != null;
+	//@requires \typeof(c) <: \elemtype(\typeof(seatReservations));
     public void reserve(Seat s, Customer c) 
             throws ReservationException {
         if(isReserved(s)) {
@@ -26,7 +27,7 @@ public class SeatReservationManager {
         seatReservations[rowToIndex(s.getRow())]
                         [numberToIndex(s.getNumber())] = c;
     }
-   //@requires s != null;  
+   	//@requires s != null;  
     public void unreserve(Seat s)
             throws ReservationException {
         if(!isReserved(s)) {
@@ -35,7 +36,7 @@ public class SeatReservationManager {
         seatReservations[rowToIndex(s.getRow())]
                         [numberToIndex(s.getNumber())] = null;
     }
-
+	//@requires \typeof(c) <: \elemtype(\typeof(seatReservations));
     public void reserveNextFree(Customer c) throws ReservationException {
         for(int rowIndex = 0; rowIndex < seatReservations.length; rowIndex++) {
             for(int numberIndex = 0; 
@@ -85,13 +86,13 @@ public class SeatReservationManager {
         return result;
     }
 
-  //@requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
-  //@ensures \result >= 0 && \result <= Seat.MAX_ROW - Seat.MIN_ROW;
+  	//@requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
+ 	//@ensures \result >= 0 && \result <= Seat.MAX_ROW - Seat.MIN_ROW;
     private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
-   //@requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
-   //@ensures \result >= 0 && \result <= Seat.MAX_NUMBER - Seat.MIN_NUMBER;
+   	//@requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
+   	//@ensures \result >= 0 && \result <= Seat.MAX_NUMBER - Seat.MIN_NUMBER;
     private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
