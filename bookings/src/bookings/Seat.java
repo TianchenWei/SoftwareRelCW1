@@ -9,19 +9,21 @@ public class Seat {
 
     private final char row;
     private final int number;
-    //@requires row >= MIN_ROW && number >= MIN_NUMBER && row <= MAX_ROW && number <= MAX_NUMBER;
-
-
+   	 //@requires row >= MIN_ROW && number >= MIN_NUMBER && row <= MAX_ROW && number <= MAX_NUMBER;
+  	 //@ensures this.row >= MIN_ROW && this.number >= MIN_NUMBER && this.row <= MAX_ROW && this.number <= MAX_NUMBER; 
+/*@pure@*/
     public Seat(char row, int number) {
         this.row = row;
         this.number = number;
     }
 
     //@ensures \result >= MIN_ROW && \result <= MAX_ROW;
+/*@pure@*/
     public final char getRow() {
         return row;
     }
     //@ensures \result >= MIN_NUMBER && \result <= MAX_NUMBER;
+/*@pure@*/
     public final int getNumber() {
         return number;
     }

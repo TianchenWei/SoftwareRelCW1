@@ -13,6 +13,7 @@ public class SeatReservationManager {
     }
 
 	 //@requires s != null;
+	/*@pure@*/
      public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
                                [numberToIndex(s.getNumber())] != null;
@@ -56,7 +57,7 @@ public class SeatReservationManager {
     /*@ ghost String toStringResult; in privateState;
         represents theString <- toStringResult;
     @*/
- 
+ /*@pure@*/	
     public String toString() {
 
         String result = " ";
@@ -88,21 +89,25 @@ public class SeatReservationManager {
 
   	//@requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
  	//@ensures \result >= 0 && \result <= Seat.MAX_ROW - Seat.MIN_ROW;
+/*@pure@*/
     private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
    	//@requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
    	//@ensures \result >= 0 && \result <= Seat.MAX_NUMBER - Seat.MIN_NUMBER;
+/*@pure@*/
     private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
        	//@requires index >= 0 && index <= Seat.MAX_ROW - Seat.MIN_ROW;
         //@ensures \result >= Seat.MIN_ROW && \result <= Seat.MAX_ROW;
+/*@pure@*/
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
   	//@requires index >= 0 && index <= Seat.MAX_NUMBER - Seat.MIN_NUMBER;
         //@ensures \result >= Seat.MIN_NUMBER && \result <= Seat.MAX_NUMBER;
+/*@pure@*/
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }
