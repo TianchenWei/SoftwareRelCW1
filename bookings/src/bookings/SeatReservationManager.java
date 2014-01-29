@@ -2,8 +2,11 @@ package bookings;
 
 public class SeatReservationManager {
     /*@ invariant seatReservations != null;
-            invariant(\forall int x;
+        invariant(\forall int x;
                 0<=x && x<seatReservations.length ==>seatReservations[x]!= null);
+        invariant seatReservations.length == (int)(Seat.MAX_ROW - Seat.MIN_ROW) + 1;
+    	invariant(\forall int x;    
+		0<=x && x<seatReservations.length ==>seatReservations[x].length == Seat.MAX_NUMBER - Seat.MIN_NUMBER + 1);
         @*/
     private final Customer[][] seatReservations;
     
@@ -90,13 +93,13 @@ public class SeatReservationManager {
   	//@requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
  	//@ensures \result >= 0 && \result <= Seat.MAX_ROW - Seat.MIN_ROW;
 /*@pure@*/
-    private static int rowToIndex(char row) {
+    private/*@helper@*/ static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
    	//@requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
    	//@ensures \result >= 0 && \result <= Seat.MAX_NUMBER - Seat.MIN_NUMBER;
 /*@pure@*/
-    private static int numberToIndex(int number) {
+    private /*@helper@*/static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
        	//@requires index >= 0 && index <= Seat.MAX_ROW - Seat.MIN_ROW;
